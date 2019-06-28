@@ -10,10 +10,16 @@ object stockmain {
 
   def main(args: Array[String]): Unit = {
 
-    val s = SparkSession.builder().appName("stockmarkets").master("local[*]").getOrCreate()
+    val s = SparkSession.builder()
+      .config("spark.executor.memory", "4g")
+      .config("spark.driver.memory", "5g")
+      .config("spark.memory.offHeap.enabled",true)
+      .config("spark.memory.offHeap.size","4g")
+      .appName("stockmarkets").master("local[*]").getOrCreate()
     val sc = s.sparkContext
     val accessKeyId: String = System.getenv("fs.s3a.access.key")
     val secretAccessKey: String = System.getenv("fs.s3a.secret.key")
+
     sc.hadoopConfiguration.set("fs.s3a.access.key", accessKeyId)
     sc.hadoopConfiguration.set("fs.s3a.secret.key", secretAccessKey)
     sc.hadoopConfiguration.set("fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
