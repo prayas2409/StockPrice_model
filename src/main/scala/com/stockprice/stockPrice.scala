@@ -17,11 +17,11 @@ class stockPrice {
   }
 
   def access_s3(path: String, s: SparkSession): Unit = {
-    val dataframe = s.read.options(Map("inferSchema"->"true","header" -> "true")).csv(path)
+    val dataframe = s.read.options(Map("inferSchema"->"true","header" -> "true")).format("com.databricks.spark.csv").load(path)
     dataframe.show()
     println("Shown the data")
     val from_home = "/home/admin1/IdeaProjects/StockMarket/src/main/Python/StockPrice/Data/"
-    dataframe.repartition(1).write.option("header","true").format("csv").save(from_home)
+    dataframe.repartition(1).write.option("header","true").format("com.databricks.spark.csv").save(from_home)
     println("Written the csv data into file")
     val filenames = getListOfFiles(from_home)
     println(filenames(0))

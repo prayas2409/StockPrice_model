@@ -17,7 +17,7 @@ import pickle
 import os
 
 a = sys.stdin.read()
-if a==" ":
+if a==" " or a=="":
     sys.exit()
 
 # print("input is  : ", a)
