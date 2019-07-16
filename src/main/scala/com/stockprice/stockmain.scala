@@ -11,10 +11,10 @@ object stockmain {
   def main(args: Array[String]): Unit = {
 
     val s = SparkSession.builder()
-      .config("spark.executor.memory", "4g")
-      .config("spark.driver.memory", "5g")
+      .config("spark.executor.memory", "2g")
+      .config("spark.driver.memory", "2g")
       .config("spark.memory.offHeap.enabled",true)
-      .config("spark.memory.offHeap.size","4g")
+      .config("spark.memory.offHeap.size","2g")
       .appName("stockmarkets").master("local[*]").getOrCreate()
     val sc = s.sparkContext
     val accessKeyId: String = System.getenv("fs.s3a.access.key")
